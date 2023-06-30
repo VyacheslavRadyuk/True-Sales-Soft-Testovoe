@@ -23,6 +23,7 @@ export default class OrderManagement extends NavigationMixin(LightningElement) {
     descriptionFieldValue;
     @api refRecordId;
     @track account;
+    @track products;
     @track isManager;
     @track isModalOpen = false;
 
@@ -42,7 +43,7 @@ export default class OrderManagement extends NavigationMixin(LightningElement) {
         if(data) {
             this.account = data.currentAccount;
             this.isManager = data.isManager;
-
+            this.products = data.products;
         } else if (error) {
             console.log(error);
         }

@@ -26,10 +26,21 @@
             <div class="slds-col layoutFilter">
                 <span>1</span>
             </div>
-            <div class="slds-col layoutSearch">
-                <span>2</span>
+            <div class="slds-col">
+                <div class="layoutSearch">2</div>
+                <div class="layoutProduct">
+                    <template if:true={products} for:each={products} for:item="product">
+                        <div class="product" key={product.Id}>
+                            <p style="text-align: center; margin-top: 50px; font-size: 15px;"><b>{product.Name}</b></p>
+                            <p style="margin-left: 20px; margin-top: 50px; font-size: 12px;"><b>{product.Description__c}</b></p>
+                            <button onclick={handleClick} style="position: absolute; margin-top: 60px; margin-left: 15px; border: 2px solid black; width: 80px; height: 40px; font-size: 12px; background-color: gray;"><b>Details</b></button>
+                            <button onclick={handleClick} style="position: absolute; margin-top: 60px; margin-left: 155px; border: 2px solid black; width: 80px; height: 40px; font-size: 12px; background-color: gray;"><b>Add</b></button>
+                        </div>
+                    </template>     
+                </div>
             </div>
         </div>
+
     </div>
 
     <template if:true={isModalOpen}>
