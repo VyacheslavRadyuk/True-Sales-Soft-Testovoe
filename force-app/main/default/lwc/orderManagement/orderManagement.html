@@ -1,20 +1,20 @@
 <template>
 
-    <div if:true={account}>
-        <div class="slds-grid slds-gutters">
+    <div if:true={account} style="background-color: gray;">
+        <div class="slds-grid slds-gutters" style="margin: 0; padding: 0;">
             <div class="slds-col layoutHeader">
               <span>
-                <lightning-layout>
-                    <lightning-layout-item size="5" padding="around-small">
+                <lightning-layout style="height: 94px;">
+                    <lightning-layout-item style="text-align: center; align-self: center;" size="5" padding="around-small">
                         {account.Name}
                     </lightning-layout-item>
-                    <lightning-layout-item size="5" padding="around-small">
+                    <lightning-layout-item style="text-align: left; align-self: center;" size="5" padding="around-small">
                         {account.AccountNumber}
                     </lightning-layout-item>
-                    <lightning-layout-item  size="1" padding="around-small">  
+                    <lightning-layout-item style="align-self: center;" size="1" padding="around-small">  
                         <lightning-button variant="brand" label="Create Product" onclick={openModal} disabled={isDisabledButton}></lightning-button>
                     </lightning-layout-item>
-                    <lightning-layout-item size="1" padding="around-small">  
+                    <lightning-layout-item style="align-self: center;" size="1" padding="around-small">  
                         <lightning-button variant="brand" label="Cart" onclick={handleClick}></lightning-button>      
                     </lightning-layout-item>
                 </lightning-layout>
@@ -22,7 +22,7 @@
             </div>
         </div>
 
-        <div class="slds-grid slds-gutters">
+        <div class="slds-grid slds-gutters" style="margin: 0; padding: 0;">
             <div class="slds-col layoutFilter">
                 <span>1</span>
             </div>

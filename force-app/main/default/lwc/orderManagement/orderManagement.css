@@ -1,14 +1,12 @@
 * {
-    margin: 0; 
-    padding: 0;
-    background-color: gray;
+    
 }
 
 .layoutHeader {
     width: 1849px;
     height: 100px;
     background-color: gray;
-    border: solid;
+    border: 2px solid;
 }
 
 .layoutFilter {
@@ -16,7 +14,7 @@
     width: 500px;
     height: 500px;
     background-color: gray;
-    border: solid;
+    border: 2px solid;
 }
 
 .layoutSearch {
@@ -25,5 +23,5 @@
     width: 1328px;
     height: 500px;
     background-color: gray;
-    border: solid;
+    border: 2px solid;
 }
