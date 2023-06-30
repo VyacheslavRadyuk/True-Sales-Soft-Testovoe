@@ -1,26 +1,35 @@
 <template>
 
     <div if:true={account}>
-        <lightning-card variant="narrow">
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col layoutHeader">
+              <span>
                 <lightning-layout>
-                    <lightning-layout-item  size="5" padding="around-small">
-                        <div>{account.Name}</div>
+                    <lightning-layout-item size="5" padding="around-small">
+                        {account.Name}
                     </lightning-layout-item>
-                    <lightning-layout-item  size="5" padding="around-small">
-                        <div>{account.AccountNumber}</div>
+                    <lightning-layout-item size="5" padding="around-small">
+                        {account.AccountNumber}
                     </lightning-layout-item>
-                    <lightning-layout-item  size="1" padding="around-small">
-                        <div>
-                            <lightning-button variant="brand" label="Create Product" onclick={openModal} disabled={isDisabledButton}></lightning-button>
-                        </div>
+                    <lightning-layout-item  size="1" padding="around-small">  
+                        <lightning-button variant="brand" label="Create Product" onclick={openModal} disabled={isDisabledButton}></lightning-button>
                     </lightning-layout-item>
-                    <lightning-layout-item  size="1" padding="around-small">
-                        <div>
-                            <lightning-button variant="brand" label="Cart" onclick={handleClick}></lightning-button>
-                        </div>
+                    <lightning-layout-item size="1" padding="around-small">  
+                        <lightning-button variant="brand" label="Cart" onclick={handleClick}></lightning-button>      
                     </lightning-layout-item>
                 </lightning-layout>
-        </lightning-card>
+              </span> 
+            </div>
+        </div>
+
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col layoutFilter">
+                <span>1</span>
+            </div>
+            <div class="slds-col layoutSearch">
+                <span>2</span>
+            </div>
+        </div>
     </div>
 
     <template if:true={isModalOpen}>

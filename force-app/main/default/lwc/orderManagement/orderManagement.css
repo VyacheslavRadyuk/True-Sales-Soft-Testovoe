@@ -1,3 +1,29 @@
-.test {
-    color:aliceblue;
+* {
+    margin: 0; 
+    padding: 0;
+    background-color: gray;
+}
+
+.layoutHeader {
+    width: 1849px;
+    height: 100px;
+    background-color: gray;
+    border: solid;
+}
+
+.layoutFilter {
+    margin-top: 20px;
+    width: 500px;
+    height: 500px;
+    background-color: gray;
+    border: solid;
+}
+
+.layoutSearch {
+    margin-top: 20px;
+    margin-left: 20px;
+    width: 1328px;
+    height: 500px;
+    background-color: gray;
+    border: solid;
 }
