@@ -8,20 +8,10 @@ public with sharing class ProductService {
     private static final String META_DATA = 'data';
     private static final String PRODUCT_IMAGE = 'imageurl';
 
-    public static void updateProduct(Product__c newProduct, String dataProductImages) {
-        newProduct.Image__c = dataProductImages;
-        update newProduct;
-    }
-
-    public static Product__c getProductById(Id productId) {
-        return [SELECT Id, Name FROM Product__c WHERE Id =:productId LIMIT 1];
-    }
-
     @Future(callout=true)
-    public static void getImagesForProducts(Id productId) {
-        Product__c productToUpdate = getProductById(productId);
+    public static void getImagesForProducts(String productName, String productType, String productDescription, String productFamily) {
         String template = URL_TEMPLATE_GLYFFIX_REMOTE_SITE;
-        List<Object> parameters = new List<Object> {GLYFFIX_NAMED_CREDENTIAL_END_POINT, productToUpdate.Name};
+        List<Object> parameters = new List<Object> {GLYFFIX_NAMED_CREDENTIAL_END_POINT, productName};
         String url = String.format(template, parameters);
 
         Http http = new Http();
@@ -29,19 +19,34 @@ public with sharing class ProductService {
         request.setEndpoint(url);
         request.setMethod(HTTP_METHOD_GET);
         HTTPResponse response = http.send(request);
-        String dataProductImages = '';
+        String dataProductImage = '';
 
         if(response.getStatusCode() != RESPONSE_STATUS_CODE_200) { 
             throw new GlyffixException(GLYFFIX_CUSTOM_EXCEPTION_ERROR);
         } else {    
             Map<String, Object> meta = (Map<String, Object>) JSON.deserializeUntyped(response.getBody()); 
             List<Object> myMapObjects = (List<Object>) meta.get(META_DATA); 
-            
-            for (Integer i = 0; i < myMapObjects.size(); i++) {
-                Map<String, Object> temporaryMap = (Map<String, Object>)myMapObjects[i]; 
-                dataProductImages += (String)temporaryMap.get(PRODUCT_IMAGE) + '\n'; 
-            }     
+            Map<String, Object> temporaryMap = (Map<String, Object>)myMapObjects[0]; 
+            dataProductImage += (String)temporaryMap.get(PRODUCT_IMAGE);   
         }
-        updateProduct(productToUpdate, dataProductImages);
+        insertProduct(productName, productType, productDescription, productFamily, dataProductImage);
+    }
+
+    public static void createProduct(String productName, String productType, String productDescription, String productFamily, String productImage) {
+        if(String.isBlank(productImage)) {
+            getImagesForProducts(productName, productType, productDescription, productFamily);
+        } else {
+            insertProduct(productName, productType, productDescription, productFamily, productImage);
+        }
+    }
+
+    public static void insertProduct(String productName, String productType, String productDescription, String productFamily, String productImage) {
+        Product__c productToInsert = new Product__c();
+        productToInsert.Name = productName;
+        productToInsert.Type__c = productType;
+        productToInsert.Description__c = productDescription;
+        productToInsert.Family__c = productFamily;
+        productToInsert.Image__c = productImage;
+        insert productToInsert;
     }
 }

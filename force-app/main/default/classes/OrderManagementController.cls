@@ -22,4 +22,8 @@ public with sharing class OrderManagementController {
         @AuraEnabled public Account currentAccount {get; set;}
         @AuraEnabled public Boolean isManager {get; set;}
     }
+
+    public static void createProduct() {
+        ProductService.createProduct();
+    }
 }

@@ -1,6 +1,7 @@
 import { LightningElement, api, wire, track } from 'lwc';
 import { CurrentPageReference, NavigationMixin } from 'lightning/navigation';
 import initData from '@salesforce/apex/OrderManagementController.getInitData';
+import createProduct from '@salesforce/apex/OrderManagementController.createProduct';
 
 export default class OrderManagement extends NavigationMixin(LightningElement) {
     @api refRecordId;
