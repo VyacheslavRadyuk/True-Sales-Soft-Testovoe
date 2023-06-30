@@ -23,7 +23,8 @@ public with sharing class OrderManagementController {
         @AuraEnabled public Boolean isManager {get; set;}
     }
 
-    public static void createProduct() {
-        ProductService.createProduct();
+    @AuraEnabled
+    public static void createProduct(String productName, String productType, String productDescription, String productFamily, String productImage) {
+        ProductService.createProduct(productName, productType, productDescription, productFamily, productImage);
     }
 }
