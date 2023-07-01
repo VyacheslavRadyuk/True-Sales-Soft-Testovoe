@@ -21,7 +21,7 @@
     margin-top: 20px;
     margin-left: 20px;
     width: 1100px;
-    height: 30px;
+    height: 37px;
     background-color: gray;
     border: 2px solid;
 }
@@ -44,6 +44,40 @@
     display: inline-block;
 }
 
-.THIS .slds-button_brand {
-    color:red;
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    black;
+}
+
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    black;
+   opacity:  1;
+}
+
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    black;
+   opacity:  1;
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    black;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+   color:    black;
+}
+
+::placeholder { /* Most modern browsers support this now. */
+   color:    black;
+}
+
+.buttonCreateProduct {
+    background-color: gray;
+    border: 2px solid black;
+    color: black;
+}
+
+.buttonCart {
+    background-color: gray;
+    border: 2px solid black;
+    color: black;
 }
