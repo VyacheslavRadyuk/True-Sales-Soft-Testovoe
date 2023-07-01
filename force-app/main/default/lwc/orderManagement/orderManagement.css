@@ -17,6 +17,46 @@
     border: 2px solid;
 }
 
+.layoutFilter-filter {
+    position: relative;
+    margin-left: 50px;
+    margin-top: 40px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.layoutFilter-type {
+    position: relative;
+    margin-left: 20px;
+    margin-top: 50px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.layoutFilter-family {
+    position: relative;
+    margin-left: 20px;
+    margin-top: 50px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.layoutFilter-type-item {
+    position: relative;
+    margin-left: 10px;
+    margin-top: 10px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.layoutFilter-family-item {
+    position: relative;
+    margin-left: 10px;
+    margin-top: 10px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
 .layoutSearch {
     margin-top: 20px;
     margin-left: 20px;

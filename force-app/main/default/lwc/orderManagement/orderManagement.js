@@ -24,6 +24,8 @@ export default class OrderManagement extends NavigationMixin(LightningElement) {
     @api refRecordId;
     @track account;
     @track products;
+    @track productTypes;
+    @track productFamilies;
     @track isManager;
     @track isModalOpen = false;
 
@@ -44,6 +46,8 @@ export default class OrderManagement extends NavigationMixin(LightningElement) {
             this.account = data.currentAccount;
             this.isManager = data.isManager;
             this.products = data.products;
+            this.productTypes = data.productTypes;
+            this.productFamilies = data.productFamilies;
         } else if (error) {
             console.log(error);
         }

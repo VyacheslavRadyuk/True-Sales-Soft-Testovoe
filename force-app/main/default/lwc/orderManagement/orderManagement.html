@@ -5,10 +5,10 @@
             <div class="slds-col layoutHeader">
               <span>
                 <lightning-layout style="height: 94px;">
-                    <lightning-layout-item style="text-align: center; align-self: center;" size="5" padding="around-small">
+                    <lightning-layout-item style="text-align: center; align-self: center; font-size: 20px;" size="5" padding="around-small">
                         <p><b>{account.Name}</b></p>
                     </lightning-layout-item>
-                    <lightning-layout-item style="text-align: left; align-self: center;" size="5" padding="around-small">
+                    <lightning-layout-item style="text-align: left; align-self: center; font-size: 20px;" size="5" padding="around-small">
                         <p><b>{account.AccountNumber}</b></p>
                     </lightning-layout-item>
                     <lightning-layout-item style="align-self: center;" size="1" padding="around-small">  
@@ -24,19 +24,32 @@
 
         <div class="slds-grid slds-gutters" style="margin: 0; padding: 0;">
             <div class="slds-col layoutFilter">
-                <span>1</span>
+                <div class="layoutFilter-filter">Filter</div>
+                <div class="layoutFilter-type">
+                    Type:
+                    <template if:true={productTypes} for:each={productTypes} for:item="productType">
+                        <div class="layoutFilter-type-item" key={productType}>
+                            <p><b>-         {productType}</b></p>
+                        </div>
+                    </template>
+                </div>
+                <div class="layoutFilter-family">
+                    Family:
+                    <template if:true={productFamilies} for:each={productFamilies} for:item="productFamily">
+                        <div class="layoutFilter-family-item" key={productFamily}>
+                            <p><b>-         {productFamily}</b></p>
+                        </div>
+                    </template>
+                </div>
             </div>
             <div class="slds-col">
                 <div class="layoutSearch">
-
-
-
                     <div class="slds-form-element">
                         <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left-right slds-input-has-icon_group-right">
                           <svg class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default" aria-hidden="true">
                             <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#search"></use>
                           </svg>
-                          <input type="text" id="text-input-id-47" placeholder="Search" class="slds-input" style="background-color: gray; color: black; " />
+                          <input type="text" id="text-input-id-47" placeholder="Search" class="slds-input" style="background-color: gray; color: black; border-style: none;" />
                           <div class="slds-input__icon-group slds-input__icon-group_right">
                             <div role="status" class="slds-spinner slds-spinner_brand slds-spinner_x-small slds-input__spinner">
                               <span class="slds-assistive-text">Loading</span>
@@ -52,17 +65,14 @@
                           </div>
                         </div>
                       </div>
-
-
-
                 </div>
                 <div class="layoutProduct">
                     <template if:true={products} for:each={products} for:item="product">
                         <div class="product" key={product.Id}>
-                            <p style="text-align: center; margin-top: 50px; font-size: 15px;"><b>{product.Name}</b></p>
-                            <p style="margin-left: 20px; margin-top: 50px; font-size: 12px;"><b>{product.Description__c}</b></p>
-                            <button onclick={handleClick} style="position: absolute; margin-top: 60px; margin-left: 15px; border: 2px solid black; width: 80px; height: 40px; font-size: 12px; background-color: gray;"><b>Details</b></button>
-                            <button onclick={handleClick} style="position: absolute; margin-top: 60px; margin-left: 155px; border: 2px solid black; width: 80px; height: 40px; font-size: 12px; background-color: gray;"><b>Add</b></button>
+                            <p style="text-align: center; margin-top: 50px; font-size: 20px;"><b>{product.Name}</b></p>
+                            <p style="margin-left: 20px; margin-top: 50px; font-size: 15px;"><b>{product.Description__c}</b></p>
+                            <button onclick={handleClick} style="position: absolute; margin-top: 40px; margin-left: 15px; border: 2px solid black; width: 80px; height: 40px; font-size: 12px; background-color: gray;"><b>Details</b></button>
+                            <button onclick={handleClick} style="position: absolute; margin-top: 40px; margin-left: 155px; border: 2px solid black; width: 80px; height: 40px; font-size: 12px; background-color: gray;"><b>Add</b></button>
                         </div>
                     </template>     
                 </div>
