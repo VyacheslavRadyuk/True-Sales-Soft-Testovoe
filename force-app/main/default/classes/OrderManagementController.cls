@@ -1,10 +1,10 @@
 public with sharing class OrderManagementController {
     
     @AuraEnabled(cacheable=true)
-    public static wrapInitData getInitData(Id recordId) {
+    public static wrapInitData getInitData(Id recordId, String searchValue, String productType, String productFamily) {
         Account accById = getAccountById(recordId);
         Boolean isManager = isManager();
-        List<Product__c> products = getProducts();
+        List<Product__c> products = getProducts(searchValue, productType, productFamily);
         List<String> productTypes = getProductTypes();
         List<String> productFamilies = getProductFamilies();
         wrapInitData accWrapper = new wrapInitData();
@@ -37,8 +37,45 @@ public with sharing class OrderManagementController {
         ProductService.createProduct(productName, productType, productDescription, productFamily, productImage);
     }
 
-    public static List<Product__c> getProducts() {
-        return [SELECT Id, Name, Description__c FROM Product__c LIMIT 50000];
+    public static List<Product__c> getProducts(String searchValue, String productType, String productFamily) {
+        List<Product__c> products = new List<Product__c>();
+        String query = 'SELECT Id, Name, Description__c FROM Product__c';
+
+        if (String.isBlank(searchValue) && String.isBlank(productType) && String.isBlank(productFamily)) {
+        } else if (String.isNotEmpty(searchValue) && String.isBlank(productType) && String.isBlank(productFamily)) {
+            searchValue = '%' + searchValue + '%';
+            query += ' WHERE (Name LIKE :searchValue OR Description__c LIKE :searchValue)';
+        } else if (String.isNotEmpty(searchValue) && (String.isNotEmpty(productType) || String.isNotEmpty(productFamily))) {
+            searchValue = '%' + searchValue + '%';
+            query += ' WHERE (Name LIKE :searchValue OR Description__c LIKE :searchValue)';
+            if (String.isNotEmpty(productType)) {
+                query += ' AND Type__c =:productType';
+            }
+            if (String.isNotEmpty(productFamily)) {
+                query += ' AND Family__c =:productFamily';
+            }
+        } else if (String.isBlank(searchValue) && (String.isNotEmpty(productType) || String.isNotEmpty(productFamily))) {
+            query += ' WHERE';
+
+            if (String.isNotEmpty(productType) && String.isNotEmpty(productFamily)) {
+                query += ' Type__c =:productType AND Family__c =:productFamily';
+            } else if (String.isNotEmpty(productType)) {
+                query += ' Type__c =:productType';
+            } else if (String.isNotEmpty(productFamily)) {
+                query += ' Family__c =:productFamily';
+            }
+        }
+
+        products = Database.query(query);
+        return products;
+
+        // if (String.isBlank(searchValue)) {
+        //     products = [SELECT Id, Name, Description__c FROM Product__c LIMIT 50000];
+        // } else {
+        //     searchValue = '%' + searchValue + '%';
+        //     products = [SELECT Id, Name, Description__c FROM Product__c WHERE (Name LIKE :searchValue OR Description__c LIKE :searchValue) LIMIT 50000];
+        // }
+        // return products;
     }
 
     public static List<String> getProductTypes() {

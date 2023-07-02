@@ -16,11 +16,14 @@ export default class OrderManagement extends NavigationMixin(LightningElement) {
     typeField = TYPE_FIELD;
     typeFieldValue;
     familyField = FAMILY_FIELD;
-    familyFieldValue
+    familyFieldValue;
     imageField = IMAGE_FIELD;
     imageFieldValue;
     descriptionField = DESCRIPTION_FIELD;
     descriptionFieldValue;
+    searchValue = '';
+    searchByType = '';
+    searchByFamily = '';
     @api refRecordId;
     @track account;
     @track products;
@@ -40,7 +43,7 @@ export default class OrderManagement extends NavigationMixin(LightningElement) {
         }
     }
 
-    @wire(initData, {recordId : '$refRecordId'})  
+    @wire(initData, {recordId : '$refRecordId', searchValue : '$searchValue', productType : '$searchByType', productFamily : '$searchByFamily'})  
     wiredInitData({error, data}) {
         if(data) {
             this.account = data.currentAccount;
@@ -95,5 +98,27 @@ export default class OrderManagement extends NavigationMixin(LightningElement) {
 
     handleChangeFieldDescription(event) {
         this.descriptionFieldValue = event.target.value;
+    }
+
+    handleChangeSearch(event) {
+        this.searchValue = event.target.value;
+    }
+
+    handleChangeType(event) {
+        if (this.searchByType === event.currentTarget.innerHTML) {
+            this.searchByType = '';
+        } else {
+            this.searchByType = event.currentTarget.innerHTML;
+        }
+        console.log(this.searchByType);      
+    }
+
+    handleChangeFamily(event) {
+        if (this.searchByFamily === event.currentTarget.innerHTML) {
+            this.searchByFamily = '';
+        } else {
+            this.searchByFamily = event.currentTarget.innerHTML;
+        }
+        console.log(this.searchByFamily);
     }
 }

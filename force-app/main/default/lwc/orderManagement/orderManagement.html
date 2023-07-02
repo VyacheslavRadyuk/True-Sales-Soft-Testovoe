@@ -29,7 +29,7 @@
                     Type:
                     <template if:true={productTypes} for:each={productTypes} for:item="productType">
                         <div class="layoutFilter-type-item" key={productType}>
-                            <p><b>-         {productType}</b></p>
+                            <p><b>- </b> <b data-producttype={productType} onclick={handleChangeType}>{productType}</b></p>
                         </div>
                     </template>
                 </div>
@@ -37,7 +37,7 @@
                     Family:
                     <template if:true={productFamilies} for:each={productFamilies} for:item="productFamily">
                         <div class="layoutFilter-family-item" key={productFamily}>
-                            <p><b>-         {productFamily}</b></p>
+                            <p><b>- </b> <b data-productfamily={productFamily} onclick={handleChangeFamily}>{productFamily}</b></p>
                         </div>
                     </template>
                 </div>
@@ -49,7 +49,7 @@
                           <svg class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default" aria-hidden="true">
                             <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#search"></use>
                           </svg>
-                          <input type="text" id="text-input-id-47" placeholder="Search" class="slds-input" style="background-color: gray; color: black; border-style: none;" />
+                          <input type="text" id="text-input-id-47" placeholder="Search" onchange={handleChangeSearch} class="slds-input" style="background-color: gray; color: black; border-style: none;" />
                           <div class="slds-input__icon-group slds-input__icon-group_right">
                             <div role="status" class="slds-spinner slds-spinner_brand slds-spinner_x-small slds-input__spinner">
                               <span class="slds-assistive-text">Loading</span>
