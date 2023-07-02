@@ -71,7 +71,7 @@
                         <div class="product" key={product.Id}>
                             <p style="text-align: center; margin-top: 50px; font-size: 20px;"><b>{product.Name}</b></p>
                             <p style="margin-left: 20px; margin-top: 50px; font-size: 15px;"><b>{product.Description__c}</b></p>
-                            <button onclick={handleClick} style="position: absolute; margin-top: 40px; margin-left: 15px; border: 2px solid black; width: 80px; height: 40px; font-size: 12px; background-color: gray;"><b>Details</b></button>
+                            <button onclick={openModalProductDetails} data-productid={product.Id} style="position: absolute; margin-top: 40px; margin-left: 15px; border: 2px solid black; width: 80px; height: 40px; font-size: 12px; background-color: gray;"><b>Details</b></button>
                             <button onclick={handleClick} style="position: absolute; margin-top: 40px; margin-left: 155px; border: 2px solid black; width: 80px; height: 40px; font-size: 12px; background-color: gray;"><b>Add</b></button>
                         </div>
                     </template>     
@@ -81,7 +81,7 @@
 
     </div>
 
-    <template if:true={isModalOpen}>
+    <template if:true={isModalCreateProduct}>
         <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
             <div class="slds-modal__container">
                 <header class="slds-modal__header">
@@ -118,5 +118,49 @@
         </section>
         <div class="slds-backdrop slds-backdrop_open"></div>
     </template>
+
+    <template if:true={isModalDetails}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModalProductDetails}>
+                        <lightning-icon icon-name="utility:close"
+                            alternative-text="close"
+                            variant="inverse"
+                            size="small" ></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-02" class="slds-text-heading_medium slds-hyphenate">Product Details</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-2">
+                    <lightning-record-view-form object-api-name={productObject.objectApiName} record-id={productDetailsId}>
+                        <lightning-messages></lightning-messages>
+                        <div class="slds-grid">
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-output-field field-name={nameField.fieldApiName}></lightning-output-field>
+                                <lightning-output-field field-name={typeField.fieldApiName}></lightning-output-field>
+                                <lightning-output-field field-name={familyField.fieldApiName}></lightning-output-field>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-output-field field-name={imageField.fieldApiName}></lightning-output-field>
+                                <lightning-output-field field-name={descriptionField.fieldApiName}></lightning-output-field>
+                            </div>
+                         </div>
+                    </lightning-record-view-form>
+                </div>
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={closeModalProductDetails} title="Cancel">Cancel</button>
+                    <button class="slds-button slds-button_brand" onclick={closeModalProductDetails} title="Create">OK</button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+
+
+
+
+
 
 </template>

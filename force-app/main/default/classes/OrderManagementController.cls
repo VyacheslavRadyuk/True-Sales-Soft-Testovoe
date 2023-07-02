@@ -68,14 +68,6 @@ public with sharing class OrderManagementController {
 
         products = Database.query(query);
         return products;
-
-        // if (String.isBlank(searchValue)) {
-        //     products = [SELECT Id, Name, Description__c FROM Product__c LIMIT 50000];
-        // } else {
-        //     searchValue = '%' + searchValue + '%';
-        //     products = [SELECT Id, Name, Description__c FROM Product__c WHERE (Name LIKE :searchValue OR Description__c LIKE :searchValue) LIMIT 50000];
-        // }
-        // return products;
     }
 
     public static List<String> getProductTypes() {

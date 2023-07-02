@@ -30,7 +30,8 @@ export default class OrderManagement extends NavigationMixin(LightningElement) {
     @track productTypes;
     @track productFamilies;
     @track isManager;
-    @track isModalOpen = false;
+    @track isModalCreateProduct = false;
+    @track isModalDetails = false;
 
     get isDisabledButton() {
         return !this.isManager;
@@ -57,11 +58,21 @@ export default class OrderManagement extends NavigationMixin(LightningElement) {
     }
 
     openModal() {
-        this.isModalOpen = true;
+        this.isModalCreateProduct = true;
     }
 
     closeModal() {
-        this.isModalOpen = false;
+        this.isModalCreateProduct = false;
+    }
+
+    openModalProductDetails(event) {
+        this.productDetailsId = event.currentTarget.dataset.productid;
+        this.isModalDetails = true;
+    }
+
+    closeModalProductDetails() {
+        this.productDetailsId = '';
+        this.isModalDetails = false;
     }
 
     createProduct() {
@@ -77,7 +88,7 @@ export default class OrderManagement extends NavigationMixin(LightningElement) {
         this.familyFieldValue = '';
         this.descriptionFieldValue = '';
         this.imageFieldValue = '';
-        this.isModalOpen = false;
+        this.isModalCreateProduct = false;
     }
 
     handleChangeFieldName(event) {
