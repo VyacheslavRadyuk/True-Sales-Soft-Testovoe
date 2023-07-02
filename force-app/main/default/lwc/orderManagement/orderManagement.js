@@ -24,6 +24,8 @@ export default class OrderManagement extends NavigationMixin(LightningElement) {
     searchValue = '';
     searchByType = '';
     searchByFamily = '';
+    productDetailsId = '';
+    productsToCart = [];
     @api refRecordId;
     @track account;
     @track products;
@@ -131,5 +133,32 @@ export default class OrderManagement extends NavigationMixin(LightningElement) {
             this.searchByFamily = event.currentTarget.innerHTML;
         }
         console.log(this.searchByFamily);
+    }
+
+    addProductToCart(event) {
+        let newProductToCartFound = true;
+        if(this.productsToCart.length == 0) {
+            this.productsToCart.push({
+                id : event.currentTarget.dataset.productid,
+                name : event.currentTarget.dataset.productname,
+                size : 1
+            });
+        } else {
+            let newProductToCartFound = true;
+            this.productsToCart.forEach((eachEle, index, array) => {
+                if (JSON.stringify(eachEle.id) === JSON.stringify(event.currentTarget.dataset.productid)) {
+                    eachEle.size += 1;
+                    newProductToCartFound = false;
+                }
+            });
+            if (newProductToCartFound) {
+                this.productsToCart.push({
+                    id : event.currentTarget.dataset.productid,
+                    name : event.currentTarget.dataset.productname,
+                    size : 1
+                });
+            }
+        }
+        console.log(JSON.parse(JSON.stringify(this.productsToCart)));
     }
 }
