@@ -164,7 +164,7 @@
 
 
 
-    <!-- <template if:true={isModalCart}>
+    <template if:true={isModalCart}>
         <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
             <div class="slds-modal__container">
                 <header class="slds-modal__header">
@@ -178,7 +178,77 @@
                     <h2 id="modal-heading-03" class="slds-text-heading_medium slds-hyphenate">Cart</h2>
                 </header>
                 <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-3">
+
+
+
+
+
+
+                        <div class="slds-box slds-theme–default">
+                            <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+                                    <thead>
+                                    <tr class="slds-line-height_reset">
+                                        <th class="" scope="col">
+                                            Product Name
+                                        </th>
+                                        <th class="" scope="col">
+                                            Quantity
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <template if:true={productsToCart} for:each={productsToCart} for:item="product">
+                                        <tr class="slds-hint-parent" key = {product.id}>
+                                            <td data-label="Name">
+                                                <div class="slds-cell-wrap">{product.name}</div>
+                                            </td>
+                                            <td data-label="Size">
+                                                <div class="slds-cell-wrap">{product.size}</div>
+                                            </td>            
+                                        </tr>
+                                    </template>
+                                </tbody>
+                            </table>
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                     
+                    <!-- <table cellpadding="2" cellspacing="0" class="column-bordered-table table">
+                        <thead>
+                            <tr>
+                                <th style="color: white; width: 500px"><center>Product</center></th>
+                                <th style="color: white; width: 200px"><center>Quantity</center></th>
+                            </tr>
+                        </thead> 
+                        <tbody>
+                            <template if:true={productsToCart} for:each={productsToCart} for:item="product">
+                                <div class="product" key={product.Id}>  
+                                    <tr> 
+                                        <td>{product.name}</td>
+                                        <td align="center">{product.size}</td>
+                                    </tr> 
+                                </div>
+                            </template>      
+                        </tbody>
+                    </table>    -->
+
+
+
+                    
+
                 </div>
                 <footer class="slds-modal__footer">
                     <button class="slds-button slds-button_neutral" onclick={closeModalCart} title="Cancel">Cancel</button>
@@ -188,7 +258,7 @@
         </section>
         <div class="slds-backdrop slds-backdrop_open"></div>
     </template>
- -->
+
 
 
 
