@@ -9,7 +9,7 @@ public with sharing class ProductService {
     private static final String PRODUCT_IMAGE = 'imageurl';
 
     @Future(callout=true)
-    public static void getImagesForProducts(String productName, String productType, String productDescription, String productFamily, Integer productPrice) {
+    public static void getImagesForProducts(String productName, String productType, String productDescription, String productFamily, Decimal productPrice) {
         String template = URL_TEMPLATE_GLYFFIX_REMOTE_SITE;
         List<Object> parameters = new List<Object> {GLYFFIX_NAMED_CREDENTIAL_END_POINT, productName};
         String url = String.format(template, parameters);
@@ -32,7 +32,7 @@ public with sharing class ProductService {
         insertProduct(productName, productType, productDescription, productFamily, productPrice, dataProductImage);
     }
 
-    public static void createProduct(String productName, String productType, String productDescription, String productFamily, String productImage, Integer productPrice) {
+    public static void createProduct(String productName, String productType, String productDescription, String productFamily, String productImage, Decimal productPrice) {
         if(String.isBlank(productImage)) {
             getImagesForProducts(productName, productType, productDescription, productFamily, productPrice);
         } else {
@@ -40,7 +40,7 @@ public with sharing class ProductService {
         }
     }
 
-    public static void insertProduct(String productName, String productType, String productDescription, String productFamily, Integer productPrice, String productImage) {
+    public static void insertProduct(String productName, String productType, String productDescription, String productFamily, Decimal productPrice, String productImage) {
         Product__c productToInsert = new Product__c();
         productToInsert.Name = productName;
         productToInsert.Type__c = productType;

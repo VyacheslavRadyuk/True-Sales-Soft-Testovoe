@@ -104,7 +104,7 @@ export default class OrderManagement extends NavigationMixin(LightningElement) {
         this.familyFieldValue = '';
         this.descriptionFieldValue = '';
         this.imageFieldValue = '';
-        this.priceFieldValue = '';
+        this.priceFieldValue = null;
         this.isModalCreateProduct = false;
     }
 

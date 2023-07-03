@@ -33,7 +33,7 @@ public with sharing class OrderManagementController {
     }
 
     @AuraEnabled
-    public static void createProduct(String productName, String productType, String productDescription, String productFamily, String productImage, Integer productPrice) {
+    public static void createProduct(String productName, String productType, String productDescription, String productFamily, String productImage, Decimal productPrice) {
         ProductService.createProduct(productName, productType, productDescription, productFamily, productImage, productPrice);
     }
 
