@@ -94,7 +94,6 @@ public with sharing class OrderManagementController {
 
     @AuraEnabled
     public static String createOrder(List<ProductsDataWrapper> productsData, Id accountId) {
-        system.debug(productsData);
         Order__c orderToInsert = new Order__c();
         orderToInsert.AccountId__c = accountId;
         insert orderToInsert;
@@ -110,8 +109,8 @@ public with sharing class OrderManagementController {
             OrderItem__c orderItemToInsert = new OrderItem__c();
             orderItemToInsert.OrderId__c = orderId;
             orderItemToInsert.ProductId__c = product.id;
-            orderItemToInsert.Quantity__c = product.price;
-            orderItemToInsert.Price__c = product.size;
+            orderItemToInsert.Quantity__c = product.size;
+            orderItemToInsert.Price__c = product.price * product.size;
             orderItemsToInsert.add(orderItemToInsert);
         }
 

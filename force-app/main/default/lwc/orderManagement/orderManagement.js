@@ -179,7 +179,7 @@ export default class OrderManagement extends NavigationMixin(LightningElement) {
                 });
             }
         }
-        this.showToast(event.currentTarget.dataset.product.Name);
+        this.showToast(event.currentTarget.dataset.productname);
     }
 
     showToast(productName) {
@@ -197,13 +197,13 @@ export default class OrderManagement extends NavigationMixin(LightningElement) {
         createOrder({productsData: this.productsToCart, accountId : this.refRecordId})
         .then(result => {
             createdOrderId = result;
+            this.navigateToOrderItemRelatedList(createdOrderId);
         })
         .catch(error => {
             this.error = error;
             console.error(error.body.message);
         });
         this.isModalCart = false;
-        //this.navigateToOrderItemRelatedList(createdOrderId);
     }
 
     navigateToOrderItemRelatedList(createdOrderId) {
@@ -212,7 +212,7 @@ export default class OrderManagement extends NavigationMixin(LightningElement) {
             attributes: {
                 recordId: createdOrderId,
                 objectApiName: 'Order__c',
-                relationshipApiName: 'OrderItem__c',
+                relationshipApiName: 'OrderItems__r',
                 actionName: 'view'
             },
         });
