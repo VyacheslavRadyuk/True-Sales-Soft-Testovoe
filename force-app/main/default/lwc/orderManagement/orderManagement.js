@@ -8,6 +8,7 @@ import TYPE_FIELD from '@salesforce/schema/Product__c.Type__c';
 import FAMILY_FIELD from '@salesforce/schema/Product__c.Family__c';
 import IMAGE_FIELD from '@salesforce/schema/Product__c.Image__c';
 import DESCRIPTION_FIELD from '@salesforce/schema/Product__c.Description__c';
+import PRICE_FIELD from '@salesforce/schema/Product__c.Price__c';
 
 export default class OrderManagement extends NavigationMixin(LightningElement) {
     productObject = PRODUCT_OBJECT;
@@ -21,6 +22,8 @@ export default class OrderManagement extends NavigationMixin(LightningElement) {
     imageFieldValue;
     descriptionField = DESCRIPTION_FIELD;
     descriptionFieldValue;
+    priceField = PRICE_FIELD;
+    priceFieldValue;
     searchValue = '';
     searchByType = '';
     searchByFamily = '';
@@ -34,6 +37,7 @@ export default class OrderManagement extends NavigationMixin(LightningElement) {
     @track isManager;
     @track isModalCreateProduct = false;
     @track isModalDetails = false;
+    @track isModalCart = false;
 
     get isDisabledButton() {
         return !this.isManager;
@@ -77,8 +81,16 @@ export default class OrderManagement extends NavigationMixin(LightningElement) {
         this.isModalDetails = false;
     }
 
+    openModalCart() {
+        this.isModalCart = true;
+    }
+
+    closeModalCart() {
+        this.isModalCart = false;
+    }
+
     createProduct() {
-        createProduct({productName: this.nameFieldValue, productType: this.typeFieldValue, productDescription: this.descriptionFieldValue, productFamily: this.familyFieldValue, productImage: this.imageFieldValue})
+        createProduct({productName: this.nameFieldValue, productType: this.typeFieldValue, productDescription: this.descriptionFieldValue, productFamily: this.familyFieldValue, productImage: this.imageFieldValue, productPrice: this.priceFieldValue})
         .then(result => {
         })
         .catch(error => {
@@ -90,6 +102,7 @@ export default class OrderManagement extends NavigationMixin(LightningElement) {
         this.familyFieldValue = '';
         this.descriptionFieldValue = '';
         this.imageFieldValue = '';
+        this.priceFieldValue = '';
         this.isModalCreateProduct = false;
     }
 
@@ -111,6 +124,10 @@ export default class OrderManagement extends NavigationMixin(LightningElement) {
 
     handleChangeFieldDescription(event) {
         this.descriptionFieldValue = event.target.value;
+    }
+
+    handleChangeFieldPrice(event) {
+        this.priceFieldValue = event.target.value;
     }
 
     handleChangeSearch(event) {
@@ -136,7 +153,6 @@ export default class OrderManagement extends NavigationMixin(LightningElement) {
     }
 
     addProductToCart(event) {
-        let newProductToCartFound = true;
         if(this.productsToCart.length == 0) {
             this.productsToCart.push({
                 id : event.currentTarget.dataset.productid,

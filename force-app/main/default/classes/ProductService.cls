@@ -9,7 +9,7 @@ public with sharing class ProductService {
     private static final String PRODUCT_IMAGE = 'imageurl';
 
     @Future(callout=true)
-    public static void getImagesForProducts(String productName, String productType, String productDescription, String productFamily) {
+    public static void getImagesForProducts(String productName, String productType, String productDescription, String productFamily, Integer productPrice) {
         String template = URL_TEMPLATE_GLYFFIX_REMOTE_SITE;
         List<Object> parameters = new List<Object> {GLYFFIX_NAMED_CREDENTIAL_END_POINT, productName};
         String url = String.format(template, parameters);
@@ -29,24 +29,25 @@ public with sharing class ProductService {
             Map<String, Object> temporaryMap = (Map<String, Object>)myMapObjects[0]; 
             dataProductImage += (String)temporaryMap.get(PRODUCT_IMAGE);   
         }
-        insertProduct(productName, productType, productDescription, productFamily, dataProductImage);
+        insertProduct(productName, productType, productDescription, productFamily, productPrice, dataProductImage);
     }
 
-    public static void createProduct(String productName, String productType, String productDescription, String productFamily, String productImage) {
+    public static void createProduct(String productName, String productType, String productDescription, String productFamily, String productImage, Integer productPrice) {
         if(String.isBlank(productImage)) {
-            getImagesForProducts(productName, productType, productDescription, productFamily);
+            getImagesForProducts(productName, productType, productDescription, productFamily, productPrice);
         } else {
-            insertProduct(productName, productType, productDescription, productFamily, productImage);
+            insertProduct(productName, productType, productDescription, productFamily, productPrice, productImage);
         }
     }
 
-    public static void insertProduct(String productName, String productType, String productDescription, String productFamily, String productImage) {
+    public static void insertProduct(String productName, String productType, String productDescription, String productFamily, Integer productPrice, String productImage) {
         Product__c productToInsert = new Product__c();
         productToInsert.Name = productName;
         productToInsert.Type__c = productType;
         productToInsert.Description__c = productDescription;
         productToInsert.Family__c = productFamily;
         productToInsert.Image__c = productImage;
+        productToInsert.Price__c = productPrice;
         insert productToInsert;
     }
 }

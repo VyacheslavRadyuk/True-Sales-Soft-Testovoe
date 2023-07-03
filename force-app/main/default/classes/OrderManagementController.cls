@@ -33,8 +33,8 @@ public with sharing class OrderManagementController {
     }
 
     @AuraEnabled
-    public static void createProduct(String productName, String productType, String productDescription, String productFamily, String productImage) {
-        ProductService.createProduct(productName, productType, productDescription, productFamily, productImage);
+    public static void createProduct(String productName, String productType, String productDescription, String productFamily, String productImage, Integer productPrice) {
+        ProductService.createProduct(productName, productType, productDescription, productFamily, productImage, productPrice);
     }
 
     public static List<Product__c> getProducts(String searchValue, String productType, String productFamily) {
