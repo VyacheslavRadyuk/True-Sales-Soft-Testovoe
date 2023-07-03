@@ -72,7 +72,7 @@
                             <p style="text-align: center; margin-top: 50px; font-size: 20px;"><b>{product.Name}</b></p>
                             <p style="margin-left: 20px; margin-top: 50px; font-size: 15px;"><b>{product.Description__c}</b></p>
                             <button onclick={openModalProductDetails} data-productid={product.Id} style="position: absolute; margin-top: 40px; margin-left: 15px; border: 2px solid black; width: 80px; height: 40px; font-size: 12px; background-color: gray;"><b>Details</b></button>
-                            <button onclick={addProductToCart} data-productid={product.Id} data-productname={product.Name} style="position: absolute; margin-top: 40px; margin-left: 155px; border: 2px solid black; width: 80px; height: 40px; font-size: 12px; background-color: gray;"><b>Add</b></button>
+                            <button onclick={addProductToCart} data-productid={product.Id} data-productname={product.Name} data-productprice={product.Price__c} style="position: absolute; margin-top: 40px; margin-left: 155px; border: 2px solid black; width: 80px; height: 40px; font-size: 12px; background-color: gray;"><b>Add</b></button>
                         </div>
                     </template>     
                 </div>
@@ -159,11 +159,6 @@
         <div class="slds-backdrop slds-backdrop_open"></div>
     </template>
 
-
-
-
-
-
     <template if:true={isModalCart}>
         <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
             <div class="slds-modal__container">
@@ -178,12 +173,6 @@
                     <h2 id="modal-heading-03" class="slds-text-heading_medium slds-hyphenate">Cart</h2>
                 </header>
                 <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-3">
-
-
-
-
-
-
                         <div class="slds-box slds-theme–default">
                             <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
                                     <thead>
@@ -210,59 +199,14 @@
                                 </tbody>
                             </table>
                         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    
-                    <!-- <table cellpadding="2" cellspacing="0" class="column-bordered-table table">
-                        <thead>
-                            <tr>
-                                <th style="color: white; width: 500px"><center>Product</center></th>
-                                <th style="color: white; width: 200px"><center>Quantity</center></th>
-                            </tr>
-                        </thead> 
-                        <tbody>
-                            <template if:true={productsToCart} for:each={productsToCart} for:item="product">
-                                <div class="product" key={product.Id}>  
-                                    <tr> 
-                                        <td>{product.name}</td>
-                                        <td align="center">{product.size}</td>
-                                    </tr> 
-                                </div>
-                            </template>      
-                        </tbody>
-                    </table>    -->
-
-
-
-                    
-
-                </div>
+                    </div>
                 <footer class="slds-modal__footer">
                     <button class="slds-button slds-button_neutral" onclick={closeModalCart} title="Cancel">Cancel</button>
-                    <button class="slds-button slds-button_brand" onclick={closeModalCart} title="Checkout">Checkout</button>
+                    <button class="slds-button slds-button_brand" onclick={createOrder} title="Checkout">Checkout</button>
                 </footer>
             </div>
         </section>
         <div class="slds-backdrop slds-backdrop_open"></div>
     </template>
-
-
-
-
-
-
 
 </template>

@@ -1,7 +1,9 @@
 import { LightningElement, api, wire, track } from 'lwc';
 import { CurrentPageReference, NavigationMixin } from 'lightning/navigation';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import initData from '@salesforce/apex/OrderManagementController.getInitData';
 import createProduct from '@salesforce/apex/OrderManagementController.createProduct';
+import createOrder from '@salesforce/apex/OrderManagementController.createOrder';
 import PRODUCT_OBJECT from '@salesforce/schema/Product__c';
 import NAME_FIELD from '@salesforce/schema/Product__c.Name';
 import TYPE_FIELD from '@salesforce/schema/Product__c.Type__c';
@@ -157,6 +159,7 @@ export default class OrderManagement extends NavigationMixin(LightningElement) {
             this.productsToCart.push({
                 id : event.currentTarget.dataset.productid,
                 name : event.currentTarget.dataset.productname,
+                price : event.currentTarget.dataset.productprice,
                 size : 1
             });
         } else {
@@ -171,10 +174,47 @@ export default class OrderManagement extends NavigationMixin(LightningElement) {
                 this.productsToCart.push({
                     id : event.currentTarget.dataset.productid,
                     name : event.currentTarget.dataset.productname,
+                    price : event.currentTarget.dataset.productprice,
                     size : 1
                 });
             }
         }
-        console.log(JSON.parse(JSON.stringify(this.productsToCart)));
+        this.showToast(event.currentTarget.dataset.product.Name);
+    }
+
+    showToast(productName) {
+        const event = new ShowToastEvent({
+            title: productName + ' was added to Cart',
+            message: productName + ' was added to Cart',
+            variant: 'success',
+            mode: 'dismissable'
+        });
+        this.dispatchEvent(event);
+    }
+
+    createOrder() {
+        let createdOrderId;
+        createOrder({productsData: this.productsToCart, accountId : this.refRecordId})
+        .then(result => {
+            createdOrderId = result;
+        })
+        .catch(error => {
+            this.error = error;
+            console.error(error.body.message);
+        });
+        this.isModalCart = false;
+        //this.navigateToOrderItemRelatedList(createdOrderId);
+    }
+
+    navigateToOrderItemRelatedList(createdOrderId) {
+        this[NavigationMixin.Navigate]({
+            type: 'standard__recordRelationshipPage',
+            attributes: {
+                recordId: createdOrderId,
+                objectApiName: 'Order__c',
+                relationshipApiName: 'OrderItem__c',
+                actionName: 'view'
+            },
+        });
     }
 }

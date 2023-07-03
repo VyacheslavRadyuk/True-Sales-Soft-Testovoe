@@ -39,7 +39,7 @@ public with sharing class OrderManagementController {
 
     public static List<Product__c> getProducts(String searchValue, String productType, String productFamily) {
         List<Product__c> products = new List<Product__c>();
-        String query = 'SELECT Id, Name, Description__c FROM Product__c';
+        String query = 'SELECT Id, Name, Description__c, Price__c FROM Product__c';
 
         if (String.isBlank(searchValue) && String.isBlank(productType) && String.isBlank(productFamily)) {
         } else if (String.isNotEmpty(searchValue) && String.isBlank(productType) && String.isBlank(productFamily)) {
@@ -90,5 +90,37 @@ public with sharing class OrderManagementController {
         }
 
         return productFamilies;
+    }
+
+    @AuraEnabled
+    public static String createOrder(List<ProductsDataWrapper> productsData, Id accountId) {
+        system.debug(productsData);
+        Order__c orderToInsert = new Order__c();
+        orderToInsert.AccountId__c = accountId;
+        insert orderToInsert;
+
+        createOrderItemByOrder(productsData, orderToInsert.Id);
+        return orderToInsert.Id;
+    }
+
+    @AuraEnabled
+    public static void createOrderItemByOrder(List<ProductsDataWrapper> productsData, String orderId) {
+        List<OrderItem__c> orderItemsToInsert = new List<OrderItem__c>();
+        for (ProductsDataWrapper product : productsData) {
+            OrderItem__c orderItemToInsert = new OrderItem__c();
+            orderItemToInsert.OrderId__c = orderId;
+            orderItemToInsert.ProductId__c = product.id;
+            orderItemToInsert.Quantity__c = product.price;
+            orderItemToInsert.Price__c = product.size;
+            orderItemsToInsert.add(orderItemToInsert);
+        }
+
+        insert orderItemsToInsert;
+    }
+
+    public class ProductsDataWrapper {
+        @AuraEnabled public Id id {get; set;}
+        @AuraEnabled public Integer price {get; set;}
+        @AuraEnabled public Integer size {get; set;}
     }
 }
