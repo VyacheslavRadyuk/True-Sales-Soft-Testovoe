@@ -33,4 +33,15 @@ public with sharing class TestDataFactory {
         };
         return orderItemsToInsert;
     } 
+
+    public static User createUserMAnager() {
+        Profile userProfile = [SELECT Id FROM Profile WHERE Name = 'System Administrator']; 
+        User newUserToInsert = new User(Alias = 'standt', Email='standarduser@testorg.com', 
+            EmailEncodingKey='UTF-8', LastName='Testing', LanguageLocaleKey='en_US', 
+            LocaleSidKey='en_US', ProfileId = userProfile.Id, 
+            TimeZoneSidKey='America/Los_Angeles', UserName='stfdfvcx332322andarduser@testorg.com', IsManager__c = true);
+
+        insert newUserToInsert; 
+        return newUserToInsert; 
+    }
 }

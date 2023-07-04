@@ -13,7 +13,7 @@ public with sharing class ProductServiceTest {
 
         
         Test.startTest();
-            ProductService.createProduct(productName, productType, productDescription, productFamily, productImage, productPrice);
+            OrderManagementController.createProduct(productName, productType, productDescription, productFamily, productImage, productPrice);
         Test.stopTest();
 
         Product__c productByName = [SELECT Id, Image__c FROM Product__c WHERE Name =:productName LIMIT 1];
@@ -32,7 +32,7 @@ public with sharing class ProductServiceTest {
 
         
         Test.startTest();
-            ProductService.createProduct(productName, productType, productDescription, productFamily, productImage, productPrice);
+            OrderManagementController.createProduct(productName, productType, productDescription, productFamily, productImage, productPrice);
         Test.stopTest();
 
         Product__c productByName = [SELECT Id, Image__c FROM Product__c WHERE Name =:productName LIMIT 1];

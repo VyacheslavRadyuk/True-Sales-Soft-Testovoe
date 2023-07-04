@@ -39,7 +39,7 @@ public with sharing class OrderManagementController {
 
     public static List<Product__c> getProducts(String searchValue, String productType, String productFamily) {
         List<Product__c> products = new List<Product__c>();
-        String query = 'SELECT Id, Name, Description__c, Price__c FROM Product__c';
+        String query = 'SELECT Id, Name, Description__c, Family__c, Type__c, Price__c, Image__c FROM Product__c';
 
         if (String.isBlank(searchValue) && String.isBlank(productType) && String.isBlank(productFamily)) {
         } else if (String.isNotEmpty(searchValue) && String.isBlank(productType) && String.isBlank(productFamily)) {
