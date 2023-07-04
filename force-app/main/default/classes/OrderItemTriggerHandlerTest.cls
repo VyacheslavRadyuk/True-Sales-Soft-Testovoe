@@ -29,7 +29,7 @@ public with sharing class OrderItemTriggerHandlerTest {
     }  
 
     @IsTest
-    static void getOrderByIdTest() {
+    static void testGetOrderById() {
         Order__c orderFromDb = OrderItemTriggerHandler.getOrderById(orders[0].Id);
 
         System.assertNotEquals(null, orderFromDb.Id);
