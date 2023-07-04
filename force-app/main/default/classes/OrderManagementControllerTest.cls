@@ -109,4 +109,23 @@ public with sharing class OrderManagementControllerTest {
         System.assertEquals('Family 2', productFamilies[1]);
         System.assertEquals('Family 3', productFamilies[2]);
     }  
+
+    @IsTest
+    static void testCreateOrder() {  
+        String jsonProductData = '[{"id":\"' + products[0].Id + '\","price":10,"size":3}, {"id":\"' + products[1].Id + '\","price":15,"size":3}]';
+        List<OrderManagementController.ProductsDataWrapper> productsData = (List<OrderManagementController.ProductsDataWrapper>)JSON.deserialize(jsonProductData, List<OrderManagementController.ProductsDataWrapper>.class);
+        String createdOrderId = OrderManagementController.createOrder(productsData, accounts[0].Id);
+        Order__c getOrderAfterCreating = [SELECT Id, AccountId__c FROM Order__c WHERE Id =:createdOrderId LIMIT 1];
+        List<OrderItem__c> getOrderItemsByOrderId = [SELECT Id, OrderId__c, ProductId__c, Quantity__c, Price__c FROM OrderItem__c WHERE OrderId__c =:createdOrderId];
+
+        System.assertEquals(accounts[0].Id, getOrderAfterCreating.AccountId__c);
+        System.assertEquals(createdOrderId, getOrderItemsByOrderId[0].OrderId__c);
+        System.assertEquals(products[0].Id, getOrderItemsByOrderId[0].ProductId__c);
+        System.assertEquals(3, getOrderItemsByOrderId[0].Quantity__c);
+        System.assertEquals(30, getOrderItemsByOrderId[0].Price__c);
+        System.assertEquals(createdOrderId, getOrderItemsByOrderId[1].OrderId__c);
+        System.assertEquals(products[1].Id, getOrderItemsByOrderId[1].ProductId__c);
+        System.assertEquals(3, getOrderItemsByOrderId[1].Quantity__c);
+        System.assertEquals(45, getOrderItemsByOrderId[1].Price__c);
+    }   
 }
