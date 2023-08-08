@@ -139,3 +139,13 @@
   -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
   background-color: gray;
 }
+
+.selectedType-color {
+    background-color: black;
+    color: white;
+}
+
+.selectedFamily-color {
+    background-color: black;
+    color: white;
+}

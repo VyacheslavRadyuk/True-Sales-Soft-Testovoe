@@ -28,7 +28,9 @@ export default class OrderManagement extends NavigationMixin(LightningElement) {
     priceFieldValue;
     searchValue = '';
     searchByType = '';
+    searchByTypeSelector;
     searchByFamily = '';
+    searchByFamilySelector;
     productDetailsId = '';
     productsToCart = [];
     @api refRecordId;
@@ -139,19 +141,33 @@ export default class OrderManagement extends NavigationMixin(LightningElement) {
     handleChangeType(event) {
         if (this.searchByType === event.currentTarget.innerHTML) {
             this.searchByType = '';
+            this.searchByTypeSelector.classList.remove('selectedType-color');
+            this.searchByTypeSelector = '';
         } else {
+            if (this.searchByType !== '') {
+                this.searchByTypeSelector.classList.remove('selectedType-color');
+                this.searchByTypeSelector = '';
+            }
             this.searchByType = event.currentTarget.innerHTML;
+            this.searchByTypeSelector = this.template.querySelector(`[data-producttype="${this.searchByType}"]`);
+            this.searchByTypeSelector.classList.add('selectedType-color');
         }
-        console.log(this.searchByType);      
     }
 
     handleChangeFamily(event) {
         if (this.searchByFamily === event.currentTarget.innerHTML) {
             this.searchByFamily = '';
+            this.searchByFamilySelector.classList.remove('selectedFamily-color');
+            this.searchByFamilySelector = '';
         } else {
+            if (this.searchByFamily !== '') {
+                this.searchByFamilySelector.classList.remove('selectedFamily-color');
+                this.searchByFamilySelector = '';
+            }
             this.searchByFamily = event.currentTarget.innerHTML;
+            this.searchByFamilySelector = this.template.querySelector(`[data-productfamily="${this.searchByFamily}"]`);
+            this.searchByFamilySelector.classList.add('selectedFamily-color');
         }
-        console.log(this.searchByFamily);
     }
 
     addProductToCart(event) {
