@@ -69,10 +69,10 @@
                 <div class="layoutProduct">
                     <template if:true={products} for:each={products} for:item="product">
                         <div class="product" key={product.Id}>
-                            <p style="text-align: center; margin-top: 50px; font-size: 20px;"><b>{product.Name}</b></p>
-                            <p style="margin-left: 20px; margin-top: 50px; font-size: 15px;"><b>{product.Description__c}</b></p>
-                            <button onclick={openModalProductDetails} data-productid={product.Id} style="position: absolute; margin-top: 40px; margin-left: 15px; border: 2px solid black; width: 80px; height: 40px; font-size: 12px; background-color: gray;"><b>Details</b></button>
-                            <button onclick={addProductToCart} data-productid={product.Id} data-productname={product.Name} data-productprice={product.Price__c} style="position: absolute; margin-top: 40px; margin-left: 155px; border: 2px solid black; width: 80px; height: 40px; font-size: 12px; background-color: gray;"><b>Add</b></button>
+                            <p style="text-align: center; margin-top: 50px; font-size: 20px; "><b>{product.Name}</b></p>
+                            <p style="left: 20px; top: 100px; font-size: 15px; position: absolute;"><b>{product.Description__c}</b></p>
+                            <button onclick={openModalProductDetails} data-productid={product.Id} style="position: absolute; bottom: 15px; left: 15px; border: 2px solid black; width: 80px; height: 40px; font-size: 12px; background-color: gray;"><b>Details</b></button>
+                            <button onclick={addProductToCart} data-productid={product.Id} data-productname={product.Name} data-productprice={product.Price__c} style="position: absolute; bottom: 15px; right: 15px; border: 2px solid black; width: 80px; height: 40px; font-size: 12px; background-color: gray;"><b>Add</b></button>
                         </div>
                     </template>     
                 </div>

@@ -82,6 +82,7 @@
     background-color: gray;
     border: 2px solid;
     display: inline-block;
+    position: relative;
 }
 
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
